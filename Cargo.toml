@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "fortran-descriptor-parser",
+    "fortran-descriptor-parser-macro",
+]

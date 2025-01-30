@@ -1,0 +1,10 @@
+[package]
+name = "fortran-descriptor-parser"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fortran-descriptor-parser-macro = { path = "../fortran-descriptor-parser-macro" }
+lexical = "7.0.4"
+serde = { version = "1.0.217", features = ["derive"] }
+thiserror = "2.0.11"
