@@ -5,11 +5,11 @@ use thiserror::Error;
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum DescriptorParserError {
-    #[error("Can't convert {0} into f32")]
+    #[error("Can't convert '{0}' into f32")]
     Invalidf32(String),
-    #[error("Can't convert {0} into f64")]
+    #[error("Can't convert '{0}' into f64")]
     Invalidf64(String),
-    #[error("Can't convert {0} into i32")]
+    #[error("Can't convert '{0}' into i32")]
     Invalidi32(String),
     #[error("Found {0} bytes, expected at least {1}")]
     NotEnoughBytes(usize, usize),

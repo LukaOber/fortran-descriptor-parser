@@ -1,6 +1,6 @@
 #![allow(clippy::approx_constant)]
 
-use fortran_descriptor_parser::{descriptor_parser, DescriptorParserError};
+use fortran_descriptor_parser::descriptor_parser;
 
 #[test]
 fn simple_integer() {
@@ -73,26 +73,44 @@ fn missing_bytes() {
     let x = descriptor_parser!("I5")(input);
     match x {
         Ok(_) => panic!(),
-        Err(e) => match e {
-            DescriptorParserError::NotEnoughBytes(f, n) => {
-                assert_eq!(f, 4);
-                assert_eq!(n, 5)
-            }
-            _ => panic!(),
-        },
+        Err(e) => {
+            assert_eq!(e.to_string(), "Found 4 bytes, expected at least 5")
+        }
     }
 }
 
 #[test]
-fn invalid_conversion() {
+fn invalid_conversion_i32() {
     let input = "    A".as_bytes();
     let x = descriptor_parser!("I5")(input);
     match x {
         Ok(_) => panic!(),
-        Err(e) => match e {
-            DescriptorParserError::Invalidi32(e) => assert_eq!("    A", e),
+        Err(e) => {
+            assert_eq!(e.to_string(), "Can't convert '    A' into i32")
+        }
+    }
+}
 
-            _ => panic!(),
-        },
+#[test]
+fn invalid_conversion_f32() {
+    let input = "    A".as_bytes();
+    let x = descriptor_parser!("F5")(input);
+    match x {
+        Ok(_) => panic!(),
+        Err(e) => {
+            assert_eq!(e.to_string(), "Can't convert '    A' into f32")
+        }
+    }
+}
+
+#[test]
+fn invalid_conversion_f64() {
+    let input = "    A".as_bytes();
+    let x = descriptor_parser!("D5")(input);
+    match x {
+        Ok(_) => panic!(),
+        Err(e) => {
+            assert_eq!(e.to_string(), "Can't convert '    A' into f64")
+        }
     }
 }
