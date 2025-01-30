@@ -2,6 +2,13 @@
 name = "fortran-descriptor-parser"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+repository = "https://github.com/LukaOber/fortran-descriptor-parser"
+documentation = "https://docs.rs/fortran-descriptor-parser"
+description = "Parse bytes which are formatted according to a fortran format edit descriptor"
+keywords = ["parser", "fortran"]
+categories = ["parser-implementations", "parsing-tools"]
+readme = "../README.md"
 
 [dependencies]
 fortran-descriptor-parser-macro = { path = "../fortran-descriptor-parser-macro", version = "0.1.0" }
