@@ -244,12 +244,12 @@ pub fn descriptor_parser(input: proc_macro::TokenStream) -> proc_macro::TokenStr
     }
     quote! {
         |i: &[u8]| {
-            use ::fortran_descriptor_parser::FromSlice;
             if i.len() < #bytes_to_take {
                 return Err(::fortran_descriptor_parser::DescriptorParserError::NotEnoughBytes(i.len(), #bytes_to_take));
             }
             let mut start_byte: usize = 0;
-            Ok((#(#parse_tokens),*))
+            let parsers = (#(#parse_tokens),*);
+            Ok(parsers)
         }
     }
     .into()

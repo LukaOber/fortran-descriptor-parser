@@ -1,4 +1,6 @@
-use fortran_descriptor_parser::descriptor_parser;
+#![allow(clippy::approx_constant)]
+
+use fortran_descriptor_parser::{descriptor_parser, DescriptorParserError};
 
 #[test]
 fn simple_integer() {
@@ -65,34 +67,32 @@ fn multi_nested() {
     assert_eq!(x3, "test");
 }
 
-// #[test]
-// fn missing_bytes() {
-//     let input = "   1".as_bytes();
-//     let x = descriptor_parser!("I5")(input);
-//     match x {
-//         Ok(_) => panic!(),
-//         Err(e) => match e {
-//             UffError::NotEnoughBytes(f, n) => {
-//                 assert_eq!(f, 4);
-//                 assert_eq!(n, 5)
-//             }
-//             _ => panic!(),
-//         },
-//     }
-// }
+#[test]
+fn missing_bytes() {
+    let input = "   1".as_bytes();
+    let x = descriptor_parser!("I5")(input);
+    match x {
+        Ok(_) => panic!(),
+        Err(e) => match e {
+            DescriptorParserError::NotEnoughBytes(f, n) => {
+                assert_eq!(f, 4);
+                assert_eq!(n, 5)
+            }
+            _ => panic!(),
+        },
+    }
+}
 
-// #[test]
-// fn invalid_conversion() {
-//     let input = "    A".as_bytes();
-//     let x = descriptor_parser!("I5")(input);
-//     match x {
-//         Ok(_) => panic!(),
-//         Err(e) => match e {
-//             UffError::ConversionError(conversion_error) => match conversion_error {
-//                 uff_rs::conversion::ConversionError::Invalidi32(s) => assert_eq!(s, "    A"),
-//                 _ => panic!(),
-//             },
-//             _ => panic!(),
-//         },
-//     }
-// }
+#[test]
+fn invalid_conversion() {
+    let input = "    A".as_bytes();
+    let x = descriptor_parser!("I5")(input);
+    match x {
+        Ok(_) => panic!(),
+        Err(e) => match e {
+            DescriptorParserError::Invalidi32(e) => assert_eq!("    A", e),
+
+            _ => panic!(),
+        },
+    }
+}

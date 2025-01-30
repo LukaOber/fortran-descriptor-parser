@@ -1,3 +1,5 @@
+#![allow(clippy::approx_constant)]
+
 #[cfg(test)]
 use fortran_descriptor_parser::FromSlice;
 
