@@ -191,6 +191,7 @@ fn expand_elements(elements: &[DataElement]) -> Vec<DataElement> {
     expanded_elements
 }
 
+/// Please refer to the crate documentation of `fortran_descriptor_parser`
 #[proc_macro]
 pub fn descriptor_parser(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let mut input_iter = input.into_iter();
