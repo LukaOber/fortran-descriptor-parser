@@ -4,6 +4,13 @@
 `fortran_descriptor_parser` provides a macro `descriptor_parser` to generate a parser at compile time
 to parse bytes which are formatted according to a [fortran format edit descriptor][ObliquityFormat]. The macro uses
 a simplified syntax inspired by the format used in the fortran descriptors.
+
+### Syntax
+`nTw`\
+`n` = number of repetitions\
+`T` = the type to parse (I: i32, S: String, F: f32, D: f64)\
+`w` = number of bytes to take
+
 ### Basic example
 ```rust
 use fortran_descriptor_parser::descriptor_parser;
@@ -11,6 +18,7 @@ let input = " -0.31415D+01";
 let f = descriptor_parser!("D13")(input.as_bytes()).unwrap();
 assert_eq!(f, -3.1415);
 ```
+
 ### Explained example
 ```rust
 use fortran_descriptor_parser::descriptor_parser;
@@ -29,6 +37,7 @@ assert_eq!(s, "Test");
 assert_eq!(f, -3.1415);
 assert_eq!(d, 3.1415);
 ```
+
 ### Repetitions
 ```rust
 use fortran_descriptor_parser::descriptor_parser;

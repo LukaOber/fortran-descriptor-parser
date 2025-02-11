@@ -4,6 +4,12 @@
 //! to parse bytes which are formatted according to a [fortran format edit descriptor][ObliquityFormat]. The macro uses
 //! a simplified syntax inspired by the format used in the fortran descriptors.
 //!
+//! ### Syntax
+//! `nTw`\
+//! `n` = number of repetitions\
+//! `T` = the type to parse (I: i32, S: String, F: f32, D: f64)\
+//! `w` = number of bytes to take
+//!
 //! ### Basic example
 //! ```rust
 //! use fortran_descriptor_parser::descriptor_parser;
